@@ -4,6 +4,7 @@ import { ChakraProvider } from '@chakra-ui/react'
 import Head from 'next/head'
 import theme from '@/components/theme'
 
+
 function MyApp({ Component, pageProps }) {
   return (
     <>
@@ -13,9 +14,11 @@ function MyApp({ Component, pageProps }) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
+
       <ChakraProvider resetCSS theme={theme}>
         <Component {...pageProps} />
       </ChakraProvider>
+
     </>
   )
 }
