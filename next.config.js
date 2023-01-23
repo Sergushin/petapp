@@ -1,3 +1,6 @@
+const { default: absoluteUrl } = require('next-absolute-url')
+const origin  = absoluteUrl()
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
@@ -5,7 +8,7 @@ const nextConfig = {
     return [
       {
         source: '/api/:path*',
-        destination: 'https://petapp-p0q9o8c69-sergushin1.vercel.app/:path*',
+        destination: `${origin.protocol}/${origin.host}/:path*`,
       },
     ]
   },

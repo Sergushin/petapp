@@ -5,7 +5,8 @@ import Layout from "@/components/Layout";
 import Link from "next/link";
 import { AddIcon, ChatIcon, PhoneIcon } from "@chakra-ui/icons";
 import Image from "next/image";
-import { animate, motion } from "framer-motion";
+import { motion } from "framer-motion";
+import absoluteUrl from 'next-absolute-url'
 
 const Categories = ({ users }) => {
 
@@ -49,8 +50,9 @@ const Categories = ({ users }) => {
   // } 
 
   const [favs, setFavs] = useState([])
-  const fetchFavs = async () => {
-    const response = await fetch('https://petapp-psi.vercel.app/api/favorites')
+  const fetchFavs = async (ctx) => {
+    const origin = absoluteUrl()
+    const response = await fetch(`http://${origin.host}/api/favorites`)
     const data = await response.json()
     setFavs(data)
   }
@@ -159,8 +161,10 @@ const Categories = ({ users }) => {
 
 export default Categories;
 export const getServerSideProps = async (ctx) => {
-  const { params } = ctx;
-  const res = await fetch(`https://petapp-p0q9o8c69-sergushin1.vercel.app/api/pets`);
+
+  const { req } = ctx;
+  const origin = absoluteUrl(req)
+  const res = await fetch(`http://${origin.host}/api/pets`);
   const users = await res.json()
   return {
     props: {

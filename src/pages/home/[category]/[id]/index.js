@@ -1,6 +1,7 @@
 import Layout from "@/components/Layout";
 import { ChatIcon, EmailIcon, PhoneIcon } from "@chakra-ui/icons";
 import { Box, Button, ButtonGroup, Divider, Flex, Heading, IconButton, List, ListItem, Text } from "@chakra-ui/react";
+import absoluteUrl from "next-absolute-url";
 import Image from "next/image";
 
 
@@ -68,7 +69,8 @@ const PetsId = ({ user }) => {
 export default PetsId;
 export const getServerSideProps = async (ctx) => {
   const { params } = ctx;
-  const res = await fetch(`https://petapp-p0q9o8c69-sergushin1.vercel.app/api/pets/${params.id}`);
+  const { origin } = absoluteUrl(req)
+  const res = await fetch(`${origin}/${params.id}`);
   const user = await res.json();
 
   return {
