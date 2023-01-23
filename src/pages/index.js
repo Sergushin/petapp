@@ -1,23 +1,17 @@
-import { Box, Center, Heading, Image, layout, Slide, Slider, SliderFilledTrack, SliderThumb, SliderTrack, Text } from "@chakra-ui/react";
+import { Box, Center, Heading, Image, Slider, SliderFilledTrack, SliderThumb, SliderTrack, Text } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import { useState } from "react";
-
-
-
-
-
-
 export default function Home() {
-
-
   const [value, setValue] = useState();
     const router=useRouter()
     const handleChange =(e)=>{
         setValue(e)
     }
-    if (value>=75) {
+    if (value>=85) {
         router.push('/home/cats')
     }
+
+
 
   return (  
     <Box maxW={'md'} p={5} mx='auto'>

@@ -28,7 +28,7 @@ const tabs = [
 
 
 const Header = () => {
-    const {push} = useRouter()
+    const {pathname,push} = useRouter()
     const {isOpen,onToggle}=useDisclosure()
 
     return (
@@ -46,7 +46,7 @@ const Header = () => {
             </Button>
                 <Center>
                     <Text as={'h4'} fontSize={'lg'} >
-                        Home
+                        <Image src={'/Icons/logo.svg'} width={'100'} height={32} alt='Logo'  />
                     </Text>
                 </Center>
                 <Box>
