@@ -50,7 +50,7 @@ const Categories = ({ users }) => {
 
   const [favs, setFavs] = useState([])
   const fetchFavs = async () => {
-    const response = await fetch('http://localhost:3000/api/favorites')
+    const response = await fetch('https://petapp-psi.vercel.app/api/favorites')
     const data = await response.json()
     setFavs(data)
   }
@@ -160,7 +160,7 @@ const Categories = ({ users }) => {
 export default Categories;
 export const getServerSideProps = async (ctx) => {
   const { params } = ctx;
-  const res = await fetch(`http://localhost:3000/api/pets`);
+  const res = await fetch(`https://petapp-psi.vercel.app/api/pets`);
   const users = await res.json()
   return {
     props: {

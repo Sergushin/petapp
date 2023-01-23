@@ -12,7 +12,6 @@
         ".vscode",
         ".next",
         "src/styles",
-        "src/components",
         "src/pages/_document.js",
         "src/pages/_app.js",
         "src/pages/index.js"
@@ -36,7 +35,6 @@
         ".vscode": true,
         ".next": true,
         "src/styles": true,
-        "src/components": true,
         "src/pages/_document.js": true,
         "src/pages/_app.js": true,
         "src/pages/index.js": true
