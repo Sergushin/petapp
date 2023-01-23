@@ -160,7 +160,7 @@ const Categories = ({ users }) => {
 export default Categories;
 export const getServerSideProps = async (ctx) => {
   const { params } = ctx;
-  const res = await fetch(`https://petapp-psi.vercel.app/api/pets`);
+  const res = await fetch(`https://petapp-p0q9o8c69-sergushin1.vercel.app/api/pets`);
   const users = await res.json()
   return {
     props: {
