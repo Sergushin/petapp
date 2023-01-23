@@ -1,5 +1,5 @@
 const { default: absoluteUrl } = require('next-absolute-url')
-const origin  = absoluteUrl()
+const {origin}  = absoluteUrl()
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
