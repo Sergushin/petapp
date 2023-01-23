@@ -66,7 +66,7 @@ const PetsId = ({ user }) => {
 };
 
 export default PetsId;
-export const getStaticProps = async (ctx) => {
+export const getServerSideProps = async (ctx) => {
   const { params } = ctx;
   const res = await fetch(`https://petapp-psi.vercel.app/api/pets/${params.id}`);
   const user = await res.json();
@@ -78,22 +78,22 @@ export const getStaticProps = async (ctx) => {
   };
 };
 
-export const getStaticPaths = async ({category,id}) => {
+// export const getStaticPaths = async ({category,id}) => {
 
-  const res = await fetch(
-    `https://petapp-psi.vercel.app/api/pets`
-  );
-  const users = await res.json();
-  const paths = users.map(user=>{
-    return{
-        params:{
-            category:`${user.type}`,
-            id:`${user.id}`
-        }
-    }
-  })
-  return {
-    paths,
-    fallback: false,
-  };
-};
+//   const res = await fetch(
+//     `https://petapp-psi.vercel.app/api/pets`
+//   );
+//   const users = await res.json();
+//   const paths = users.map(user=>{
+//     return{
+//         params:{
+//             category:`${user.type}`,
+//             id:`${user.id}`
+//         }
+//     }
+//   })
+//   return {
+//     paths,
+//     fallback: false,
+//   };
+// };
