@@ -16,7 +16,7 @@ const Footer = () => {
     const navItem = [
         {
             name: 'Home',
-            link: `/home/${category}`,
+            link: `/home`,
             icon: <Image src={'/Icons/home.svg'} width={'32'} height='32' alt='Icon' />
         },
         {
