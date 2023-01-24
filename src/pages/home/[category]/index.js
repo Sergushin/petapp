@@ -50,10 +50,10 @@ const Categories = ({ users }) => {
   // } 
 
   const [favs, setFavs] = useState([])
-  const fetchFavs =  () => {
-    const response = fetch(`https://benjamin-petapp.vercel.app/api/favorites`)
-
-    setFavs(response)
+  const fetchFavs = async () => {
+    const response =await fetch(`https://benjamin-petapp.vercel.app/api/favorites`)
+    const data =await response.json()
+    setFavs(data)
   }
   fetchFavs()
 
