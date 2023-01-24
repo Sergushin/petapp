@@ -3,9 +3,9 @@ import React, { useState } from "react";
 import { Box, ButtonGroup, Card, CardBody, CardFooter, Heading, Stack, IconButton } from "@chakra-ui/react";
 import Layout from "@/components/Layout";
 import Link from "next/link";
-import { AddIcon, ChatIcon, PhoneIcon } from "@chakra-ui/icons";
+import { ChatIcon, PhoneIcon, StarIcon } from "@chakra-ui/icons";
 import Image from "next/image";
-import { motion } from "framer-motion";
+
 
 
 const Categories = ({ users }) => {
@@ -41,10 +41,6 @@ const Categories = ({ users }) => {
     }
   }
 
-  const linkVar = {
-    hidden: { rotate: 0 },
-    enter: { rotate: 45 },
-  }
 
   return (
     <Layout >
@@ -72,11 +68,7 @@ const Categories = ({ users }) => {
                   />
                 </Link>
                 <IconButton
-                  as={motion.div}
-                  icon={<AddIcon />}
-                  variants={linkVar} // Pass the variant object into Framer Motion 
-                  initial="hidden" // Set the initial state to variants.hidden
-                  animate={favs.find(i => i.id == user.id) ? 'enter' : '#A7A7A7'}// Animated state to variants.enter
+                  icon={<StarIcon />}
                   onClick={() => { handleClick(user) }}
                   bgColor={favs.find(i => i.id === user.id) ? '#9A6AF9' : 'transparent'}
                   backdropFilter='auto'
