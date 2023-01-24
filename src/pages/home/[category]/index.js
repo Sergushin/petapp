@@ -55,7 +55,7 @@ const Categories = ({ users }) => {
     const data =await response.json()
     setFavs(data)
   }
-  fetchFavs()
+  
 
   const linkVar = {
     hidden: { rotate: 0 },
@@ -95,7 +95,7 @@ const Categories = ({ users }) => {
                   variants={linkVar} // Pass the variant object into Framer Motion 
                   initial="hidden" // Set the initial state to variants.hidden
                   animate={favs.find(i => i.id == user.id) ? 'enter' : '#A7A7A7'}// Animated state to variants.enter
-                  onClick={() => handleClick(user)}
+                  onClick={() => {handleClick(user);fetchFavs()}}
                   bgColor={favs.find(i => i.id === user.id) ? '#9A6AF9' : 'transparent'}
                   backdropFilter='auto'
                   backdropBlur='10px'
