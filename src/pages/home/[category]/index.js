@@ -19,14 +19,13 @@ const Categories = ({ users }) => {
     setToggle(!toggle)
     if (favs.find(i => i.id === user.id)) {
       function deleteFavorite(data) {
-        const response = fetch(`/api/favorites/${data}`, {
+        fetch(`/api/favorites/${data}`, {
           method: 'DELETE'
         });
       }
       deleteFavorite(user.id)
 
     } else {
-
       fetch('/api/favorites', {
         method: 'POST',
         body: JSON.stringify(user),
@@ -34,28 +33,19 @@ const Categories = ({ users }) => {
           'Content-Type': 'application/json'
         }
       }).then(response => response.json())
-
     }
-
 
   }
 
-
-
-
-  // if (selectedUsers.includes(user)) {
-  //   setSelectedUsers(selectedUsers.filter((u) => u !== user));
-  // } else {
-  //   setSelectedUsers([...selectedUsers, user]);
-  // } 
 
   const [favs, setFavs] = useState([])
   const fetchFavs = async () => {
-    const response =await fetch(`https://benjamin-petapp.vercel.app/api/favorites`)
-    const data =await response.json()
+    const response = await fetch(`https://benjamin-petapp.vercel.app/api/favorites`)
+    const data = await response.json()
     setFavs(data)
   }
-  
+  fetchFavs()
+
 
   const linkVar = {
     hidden: { rotate: 0 },
@@ -95,7 +85,7 @@ const Categories = ({ users }) => {
                   variants={linkVar} // Pass the variant object into Framer Motion 
                   initial="hidden" // Set the initial state to variants.hidden
                   animate={favs.find(i => i.id == user.id) ? 'enter' : '#A7A7A7'}// Animated state to variants.enter
-                  onClick={() => {handleClick(user);fetchFavs()}}
+                  onClick={() => { handleClick(user) }}
                   bgColor={favs.find(i => i.id === user.id) ? '#9A6AF9' : 'transparent'}
                   backdropFilter='auto'
                   backdropBlur='10px'
@@ -159,7 +149,7 @@ const Categories = ({ users }) => {
 }
 
 export default Categories;
-export const getServerSideProps = async (ctx) => {
+export const getStaticProps = async (ctx) => {
   const res = await fetch(`https://benjamin-petapp.vercel.app/api/pets`);
   const users = await res.json()
   return {
@@ -168,18 +158,18 @@ export const getServerSideProps = async (ctx) => {
     },
   };
 };
-// export const getStaticPaths = async () => {
-//   const res = await fetch(`http://localhost:4000/pets`);
-//   const users = await res.json();
-//   const paths = users.map((user) => {
-//     return {
-//       params: {
-//         category: `${user.type}`,
-//       },
-//     };
-//   });
-//   return {
-//     paths,
-//     fallback: "blocking",
-//   };
-// };
+export const getStaticPaths = async () => {
+  const res = await fetch(`http://localhost:3000/api/pets`);
+  const users = await res.json();
+  const paths = users.map((user) => {
+    return {
+      params: {
+        category: `${user.type}`,
+      },
+    };
+  });
+  return {
+    paths,
+    fallback: "blocking",
+  };
+};
