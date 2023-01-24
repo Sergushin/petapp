@@ -9,10 +9,16 @@ import { motion } from "framer-motion";
 
 
 const Categories = ({ users }) => {
+  const [favs, setFavs] = useState([])
+  const fetchFavs = async () => {
+    const response = await fetch(`https://benjamin-petapp.vercel.app/api/favorites`)
+    const data = await response.json()
+    setFavs(data)
+  }
+  fetchFavs()
 
   const router = useRouter();
   const { category } = router.query;
-
   const [toggle, setToggle] = useState(false)
 
   const handleClick = (user) => {
@@ -24,7 +30,6 @@ const Categories = ({ users }) => {
         });
       }
       deleteFavorite(user.id)
-
     } else {
       fetch('/api/favorites', {
         method: 'POST',
@@ -34,25 +39,12 @@ const Categories = ({ users }) => {
         }
       }).then(response => response.json())
     }
-
   }
-
-
-  const [favs, setFavs] = useState([])
-  const fetchFavs = async () => {
-    const response = await fetch(`https://benjamin-petapp.vercel.app/api/favorites`)
-    const data = await response.json()
-    setFavs(data)
-  }
-  fetchFavs()
-
 
   const linkVar = {
     hidden: { rotate: 0 },
     enter: { rotate: 45 },
   }
-
-
 
   return (
     <Layout >
@@ -136,19 +128,14 @@ const Categories = ({ users }) => {
                 </ButtonGroup>
               </CardFooter>
             </Card>
-
-
-
-
-          );
+          )
         })}
       </Box>
-
     </Layout>
   )
 }
-
 export default Categories;
+
 export const getServerSideProps = async (ctx) => {
   const res = await fetch(`https://benjamin-petapp.vercel.app/api/pets`);
   const users = await res.json()

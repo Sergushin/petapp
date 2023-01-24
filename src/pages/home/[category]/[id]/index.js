@@ -1,19 +1,15 @@
 import Layout from "@/components/Layout";
-import { ChatIcon,  PhoneIcon } from "@chakra-ui/icons";
-import { Box,  Divider, Flex, Heading, IconButton, List, ListItem, Text } from "@chakra-ui/react";
+import { ChatIcon, PhoneIcon } from "@chakra-ui/icons";
+import { Box, Divider, Flex, Heading, IconButton, List, ListItem, Text } from "@chakra-ui/react";
 import Image from "next/image";
 
-
 const PetsId = ({ user }) => {
-  
-
   return (
     <Layout>
       <Box py={'18%'}>
         <Box>
           <Box
             p={5}
-
           >
             <Image
               src='/cat.jpeg'
@@ -52,10 +48,10 @@ const PetsId = ({ user }) => {
 
         <List my={5} spacing={0}>
           <ListItem display={'flex'} alignItems='center' gap={5}><Text color={'blackAlpha.500'} fontWeight='medium' fontSize={'lg'}>Name:</Text><Heading as={'h2'} fontWeight='mdeium' fontSize={'xl'}>{user.name}</Heading></ListItem>
-          <ListItem display={'flex'} alignItems='center' gap={4}><Text color={'blackAlpha.500'} fontWeight='medium' fontSize={'lg'}>Owner:</Text><Heading as={'h2'} fontWeight='mdeium'fontSize={'xl'}>{user.owner}</Heading></ListItem>
-          <ListItem display={'flex'} alignItems='center' gap={5}><Text color={'blackAlpha.500'} fontWeight='medium' fontSize={'lg'}>Breed:</Text><Heading as={'h2'} fontWeight='mdeium'fontSize={'xl'}>{user.type}</Heading></ListItem>
+          <ListItem display={'flex'} alignItems='center' gap={4}><Text color={'blackAlpha.500'} fontWeight='medium' fontSize={'lg'}>Owner:</Text><Heading as={'h2'} fontWeight='mdeium' fontSize={'xl'}>{user.owner}</Heading></ListItem>
+          <ListItem display={'flex'} alignItems='center' gap={5}><Text color={'blackAlpha.500'} fontWeight='medium' fontSize={'lg'}>Breed:</Text><Heading as={'h2'} fontWeight='mdeium' fontSize={'xl'}>{user.type}</Heading></ListItem>
         </List>
-        <Divider/>
+        <Divider />
         <Heading>About:</Heading>
         <Text>{user.about}</Text>
 
@@ -69,7 +65,7 @@ const PetsId = ({ user }) => {
 
 export default PetsId;
 export const getServerSideProps = async (ctx) => {
-  const {params} = ctx
+  const { params } = ctx
   const res = await fetch(`https://benjamin-petapp.vercel.app/${params.id}`);
   const user = await res.json();
 
