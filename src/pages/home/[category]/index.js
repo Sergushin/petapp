@@ -149,7 +149,7 @@ const Categories = ({ users }) => {
 }
 
 export default Categories;
-export const getStaticProps = async (ctx) => {
+export const getServerSideProps = async (ctx) => {
   const res = await fetch(`https://benjamin-petapp.vercel.app/api/pets`);
   const users = await res.json()
   return {
@@ -158,18 +158,18 @@ export const getStaticProps = async (ctx) => {
     },
   };
 };
-export const getStaticPaths = async () => {
-  const res = await fetch(`http://localhost:3000/api/pets`);
-  const users = await res.json();
-  const paths = users.map((user) => {
-    return {
-      params: {
-        category: `${user.type}`,
-      },
-    };
-  });
-  return {
-    paths,
-    fallback: "blocking",
-  };
-};
+// export const getStaticPaths = async () => {
+//   const res = await fetch(`http://localhost:3000/api/pets`);
+//   const users = await res.json();
+//   const paths = users.map((user) => {
+//     return {
+//       params: {
+//         category: `${user.type}`,
+//       },
+//     };
+//   });
+//   return {
+//     paths,
+//     fallback: "blocking",
+//   };
+// };
