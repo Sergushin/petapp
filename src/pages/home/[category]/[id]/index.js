@@ -69,6 +69,7 @@ const PetsId = ({ user }) => {
 
 export default PetsId;
 export const getServerSideProps = async (ctx) => {
+  const {params} = ctx
   const res = await fetch(`https://benjamin-petapp.vercel.app/${params.id}`);
   const user = await res.json();
 
