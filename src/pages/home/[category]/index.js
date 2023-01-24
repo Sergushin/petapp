@@ -7,7 +7,6 @@ import { ChatIcon, PhoneIcon, StarIcon } from "@chakra-ui/icons";
 import Image from "next/image";
 
 
-
 const Categories = ({ users }) => {
   const [favs, setFavs] = useState([])
   const fetchFavs = async () => {
@@ -15,7 +14,7 @@ const Categories = ({ users }) => {
     const data = await response.json()
     setFavs(data)
   }
-  fetchFavs()
+  const { data, error, isLoading } = useSWR('/api/favorites', fetchFavs)
 
   const router = useRouter();
   const { category } = router.query;
