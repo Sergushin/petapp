@@ -14,7 +14,7 @@ const Categories = ({ users }) => {
     const data = await response.json()
     setFavs(data)
   }
-  const { data, error, isLoading } = useSWR('/api/favorites', fetchFavs)
+  const { data, error, isLoading } = useSWR('https://benjamin-petapp.vercel.app/api/favorites', fetchFavs)
 
   const router = useRouter();
   const { category } = router.query;
