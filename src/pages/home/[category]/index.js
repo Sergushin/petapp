@@ -9,13 +9,10 @@ import Image from "next/image";
 
 const Categories = ({ users }) => {
   const [favs, setFavs] = useState([])
-  const fetchFavs = async () => {
-    const response = await fetch(`https://benjamin-petapp.vercel.app/api/favorites`)
-    const data = await response.json()
-    setFavs(data)
-  }
-  const { data, error, isLoading } = useSWR('https://benjamin-petapp.vercel.app/api/favorites', fetchFavs)
+  const fetcher = url => fetch(url).then(r => r.json())
 
+  const { data, error, isLoading } = useSWR('https://benjamin-petapp.vercel.app/api/favorites', fetcher)
+  setFavs(data)
   const router = useRouter();
   const { category } = router.query;
   const [toggle, setToggle] = useState(false)
