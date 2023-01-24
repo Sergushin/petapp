@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Box, ButtonGroup, Card, CardBody, CardFooter, Heading, Stack, IconButton } from "@chakra-ui/react";
 import Layout from "@/components/Layout";
 import Link from "next/link";
@@ -7,16 +7,26 @@ import { ChatIcon, PhoneIcon, StarIcon } from "@chakra-ui/icons";
 import Image from "next/image";
 
 
+
+
+
+// Preload the resource before rendering the User component below,
+// this prevents potential waterfalls in your application.
+// You can also start preloading when hovering the button or link, too.
+
 const Categories = ({ users }) => {
   const [favs, setFavs] = useState([])
-  const fetcher = url => fetch(url).then(r => r.json())
-
-  const { data, error, isLoading } = useSWR('https://benjamin-petapp.vercel.app/api/favorites', fetcher)
-  setFavs(data)
   const router = useRouter();
   const { category } = router.query;
   const [toggle, setToggle] = useState(false)
-
+  
+  const fetchFavs=async()=>{
+    const resp = await fetch('/api/favorites')
+    const data = await resp.json()
+    setFavs(data)
+  }
+  fetchFavs()
+  
   const handleClick = (user) => {
     setToggle(!toggle)
     if (favs.find(i => i.id === user.id)) {

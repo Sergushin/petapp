@@ -14,7 +14,6 @@
         "src/styles",
         "src/pages/_document.js",
         "src/pages/index.js",
-        "src/pages/_app.js",
         "src/components"
     ],
     "files.exclude": {
@@ -38,7 +37,6 @@
         "src/styles": true,
         "src/pages/_document.js": true,
         "src/pages/index.js": true,
-        "src/pages/_app.js": true,
         "src/components": true
     }
 }
