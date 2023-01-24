@@ -59,7 +59,7 @@ const Categories = ({ users }) => {
               key={user.id}>
               <CardBody>
                 <Link
-                  href={`${category}/${user.id}`}
+                  href={`/${user.id}`}
                   passHref
                 >
                   <Image
@@ -96,7 +96,7 @@ const Categories = ({ users }) => {
               <CardFooter alignItems={'center'} px={'8'} justifyContent={'space-between'} >
                 <Stack spacing='3'>
                   <Link
-                    href={`${category}/${user.id}`}
+                    href={`/${user.id}`}
                     passHref
                   >
                     <Heading size='md'>{user.name}</Heading>
@@ -134,13 +134,14 @@ const Categories = ({ users }) => {
 }
 export default Categories;
 
-export const getServerSideProps = async (ctx) => {
+export const getStaticProps = async (ctx) => {
   const res = await fetch(`https://benjamin-petapp.vercel.app/api/pets`);
   const users = await res.json()
   return {
     props: {
       users,
     },
+    revalidate:4,
   };
 };
 // export const getStaticPaths = async () => {

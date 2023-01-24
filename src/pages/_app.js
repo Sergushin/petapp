@@ -26,7 +26,7 @@ function MyApp({ Component, pageProps }) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
       <ChakraProvider resetCSS  theme={theme}>
-        <Header />
+         { asPath==='/'?'': <Header />}
         <AnimatePresence
           mode='wait'
           initial={true}
@@ -40,7 +40,7 @@ function MyApp({ Component, pageProps }) {
             (<Center position={'relative'} w={'100%'} h='100vh' bgRepeat={'no-repeat'}><Spinner w={'20vmax'} h='20vmax' mx={'center'} /></Center>)
           }
         </AnimatePresence>
-        <Footer />
+        { asPath==='/'?'': <Footer />}
       </ChakraProvider>
 
 

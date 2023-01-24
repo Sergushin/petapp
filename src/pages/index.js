@@ -8,15 +8,15 @@ export default function Home() {
         setValue(e)
     }
     if (value>=85) {
-        router.push('/home/cats')
+        router.push('/home')
     }
 
 
 
   return (  
-    <Box maxW={'md'} p={5} mx='auto'>
+    <Box maxW={'md'} p={5} mx='auto' zIndex='100' >
       <Box >
-        <Image shadow={'lg'} borderRadius={'30px'} src={'pet-image.jpg'} alt='petImage' />
+        <Image shadow={'lg'} loading='lazy' borderRadius={'30px'} src={'pet-image.jpg'} alt='petImage' />
       </Box>
       <Box maxW={'323px'} w='100%' mx='auto' >
         <Heading as='h1' size='md' mt={'8'} >Let Find A</Heading>

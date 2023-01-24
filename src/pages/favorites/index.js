@@ -49,12 +49,14 @@ const Favorite = ({ favorites }) => {
 
 export default Favorite;
 
-export async function getServerSideProps() {
-    const res = await fetch('http://localhost:3000/api/favorites')
+export async function getStaticProps() {
+    const res = await fetch('https://benjamin-petapp.vercel.app/api/favorites')
     const favorites = await res.json()
     return {
         props: {
             favorites
         },
+        revalidate: 3
     }
+    
 }
