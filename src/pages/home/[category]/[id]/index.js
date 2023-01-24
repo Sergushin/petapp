@@ -6,6 +6,8 @@ import Image from "next/image";
 
 
 const PetsId = ({ user }) => {
+  
+
   return (
     <Layout>
       <Box py={'18%'}>
@@ -68,9 +70,9 @@ const PetsId = ({ user }) => {
 
 export default PetsId;
 export const getServerSideProps = async (ctx) => {
-  const { params } = ctx;
-  const { origin } = absoluteUrl(req)
-  const res = await fetch(`${origin}/${params.id}`);
+  const {params,req} = ctx
+  const host = req.headers.host
+  const res = await fetch(`https://${host}/${params.id}`);
   const user = await res.json();
 
   return {
