@@ -4,7 +4,7 @@ const nextConfig = {
   async rewrites() {
     return [
       {
-        source: '/src/api/:path*',
+        source: '/api/:path*',
         destination: `https://benjamin-petapp.vercel.app/:path*`,
       },
     ]
