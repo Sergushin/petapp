@@ -42,9 +42,7 @@ const Categories = ({ users }) => {
 
 
 
-  if (typeof window !== "undefined") {
-    var host = window.location.host;     
- }
+
   // if (selectedUsers.includes(user)) {
   //   setSelectedUsers(selectedUsers.filter((u) => u !== user));
   // } else {
@@ -52,10 +50,10 @@ const Categories = ({ users }) => {
   // } 
 
   const [favs, setFavs] = useState([])
-  const fetchFavs = async () => {
-    const response = await fetch(`https://${host}/api/favorites`)
-    const data = await response.json()
-    setFavs(data)
+  const fetchFavs =  () => {
+    const response = fetch(`https://benjamin-petapp.vercel.app/api/favorites`)
+
+    setFavs(response)
   }
   fetchFavs()
 
@@ -162,9 +160,7 @@ const Categories = ({ users }) => {
 
 export default Categories;
 export const getServerSideProps = async (ctx) => {
-  const {req}=ctx
-  const host = req.headers.host
-  const res = await fetch(`https://${host}/api/pets`);
+  const res = await fetch(`https://benjamin-petapp.vercel.app/api/pets`);
   const users = await res.json()
   return {
     props: {
