@@ -7,26 +7,23 @@ import { ChatIcon, PhoneIcon, StarIcon } from "@chakra-ui/icons";
 import Image from "next/image";
 
 
-
-
-
-// Preload the resource before rendering the User component below,
-// this prevents potential waterfalls in your application.
-// You can also start preloading when hovering the button or link, too.
-
 const Categories = ({ users }) => {
   const [favs, setFavs] = useState([])
   const router = useRouter();
-  const { category } = router.query;
+  const category = router.query.category;
   const [toggle, setToggle] = useState(false)
-  
-  const fetchFavs=async()=>{
-    const resp = await fetch('/api/favorites')
-    const data = await resp.json()
-    setFavs(data)
-  }
-  fetchFavs()
-  
+
+
+  useEffect(() => {
+    const fetchFavs = async () => {
+      const resp = await fetch('/api/favorites')
+      const data = await resp.json()
+      setFavs(data)
+    };
+    fetchFavs();
+  }, [toggle]);
+
+
   const handleClick = (user) => {
     setToggle(!toggle)
     if (favs.find(i => i.id === user.id)) {
@@ -51,7 +48,8 @@ const Categories = ({ users }) => {
   return (
     <Layout >
       <Box maxW={'100%'} py={'15%'}>
-        {users.map((user) => {
+        {users.map((user) =>{
+          
           return (
             <Card my={'20px'} maxW='sm'
               borderRadius={'30px'}
@@ -59,14 +57,14 @@ const Categories = ({ users }) => {
               key={user.id}>
               <CardBody>
                 <Link
-                  href={`/${user.id}`}
+                  href={`${category}/${user.id}`}
                   passHref
                 >
                   <Image
                     style={{
                       borderRadius: '30px'
                     }}
-                    priority
+                    priority={true}
                     src='/cat.jpeg'
                     width={700}
                     height='500'
@@ -90,13 +88,12 @@ const Categories = ({ users }) => {
                   _hover={{ bgColor: 'purple.500', }}
                   _active={{ bgColor: 'purple.700' }}
                 >
-                  <Image src='/Icons/bookmark.svg' priority width={32} height={32} alt='BookMark' />
                 </IconButton>
               </CardBody>
               <CardFooter alignItems={'center'} px={'8'} justifyContent={'space-between'} >
                 <Stack spacing='3'>
                   <Link
-                    href={`/${user.id}`}
+                    href={`${category}/${user.id}`}
                     passHref
                   >
                     <Heading size='md'>{user.name}</Heading>
@@ -126,7 +123,7 @@ const Categories = ({ users }) => {
                 </ButtonGroup>
               </CardFooter>
             </Card>
-          )
+        )
         })}
       </Box>
     </Layout>
@@ -134,14 +131,17 @@ const Categories = ({ users }) => {
 }
 export default Categories;
 
-export const getStaticProps = async (ctx) => {
-  const res = await fetch(`https://benjamin-petapp.vercel.app/api/pets`);
-  const users = await res.json()
+export const getServerSideProps = async ({ res,params }) => {
+  const result = await fetch(`https://benjamin-petapp.vercel.app/api/pets?type=${params.category}`);
+  res.setHeader(
+    'Cache-Control',
+    'public, s-maxage=10, stale-while-revalidate=59'
+  )
+  const users = await result.json()
   return {
     props: {
       users,
     },
-    revalidate:4,
   };
 };
 // export const getStaticPaths = async () => {
