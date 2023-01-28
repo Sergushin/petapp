@@ -1,7 +1,7 @@
 import Layout from "@/components/Layout";
 import { StarIcon } from "@chakra-ui/icons";
 import {  Heading,  Flex,  HStack, IconButton, Text, Avatar,  Card, CardHeader, CardBody, Stack, StackDivider } from "@chakra-ui/react";
-import {  useState } from "react";
+import { useEffect, useState } from "react";
 
 
 
@@ -11,17 +11,19 @@ const Favorite = ({ favorites }) => {
     const [favs, setFavs] = useState([])
 
 
-    const fetchFavs = async () => {
-        const resp = await fetch('/api/favorites')
-        const data = await resp.json()
-        setFavs(data)
-    };
-    
-   
+
+    useEffect(() => {
+        const fetchFavs = async () => {
+            const resp = await fetch('/api/favorites')
+            const data = await resp.json()
+            setFavs(data)
+        };
+        fetchFavs();
+    }, [toggle]);
 
 
     const handleClick = (item) => {
-        
+        setToggle(!toggle)
         if (favs.find(i => i.id === item.id)) {
             function deleteFavorite(data) {
                 fetch(`/api/favorites/${data}`, {
@@ -31,7 +33,6 @@ const Favorite = ({ favorites }) => {
             deleteFavorite(item.id)
             setFavs(favorites)
         }
-       
     }
 
     return (
@@ -57,7 +58,7 @@ const Favorite = ({ favorites }) => {
                                         </HStack>
                                         <IconButton
                                                 icon={<StarIcon />}
-                                                onClick={() => { handleClick(item);fetchFavs(); }}
+                                                onClick={() => { handleClick(item) }}
                                                 bgColor={'#9A6AF9'}
                                                 w={'2rem'}
                                                 p={2}
