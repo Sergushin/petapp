@@ -18,7 +18,7 @@ const Layout = ({ children }) => {
             transition={{ type: 'linear' }}
             maxW={'md'}>
 
-            <Box maxW={'100%'} py={'15%'}>
+            <Box maxW={'100%'} py={'18%'}>
                 {children}
             </Box>
 
