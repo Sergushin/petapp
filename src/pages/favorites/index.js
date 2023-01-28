@@ -42,6 +42,7 @@ const Favorite = ({ favorites }) => {
             <Card shadow={'none'} >
                 <CardBody >
                     <Stack divider={<StackDivider />} spacing='4'>
+
                         {favs.length == 0 ? (<CardHeader><Heading>It's empty here :(</Heading><Text>Add Your Favorite Pet On The Home Page</Text></CardHeader>) : (
                             favs.map(
                                 (item) =>
