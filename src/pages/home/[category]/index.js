@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
-import React, {  useState } from "react";
-import { ButtonGroup, Card, CardBody, CardFooter, Heading, Stack, IconButton } from "@chakra-ui/react";
+import React, { useEffect, useState } from "react";
+import { Box, ButtonGroup, Card, CardBody, CardFooter, Heading, Stack, IconButton } from "@chakra-ui/react";
 import Layout from "@/components/Layout";
 import Link from "next/link";
 import { ChatIcon, PhoneIcon, StarIcon } from "@chakra-ui/icons";
@@ -14,14 +14,14 @@ const Categories = ({ users }) => {
   const [toggle, setToggle] = useState(false)
 
 
-
+  useEffect(() => {
     const fetchFavs = async () => {
       const resp = await fetch('/api/favorites')
       const data = await resp.json()
       setFavs(data)
     };
-    
-
+    fetchFavs();
+  }, [toggle]);
 
 
   const handleClick = (user) => {
@@ -73,7 +73,7 @@ const Categories = ({ users }) => {
               </Link>
               <IconButton
                 icon={<StarIcon />}
-                onClick={() => { handleClick(user);fetchFavs() }}
+                onClick={() => { handleClick(user) }}
                 bgColor={favs.find(i => i.id === user.id) ? '#9A6AF9' : 'transparent'}
                 backdropFilter='auto'
                 backdropBlur='10px'
