@@ -8,7 +8,7 @@ export default function Home() {
         setValue(e)
     }
     if (value>=85) {
-        router.push('/home')
+        router.push('/home/cats')
     }
 
 

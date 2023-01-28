@@ -1,10 +1,10 @@
-import { Box, Button, Center, Collapse, Divider, Fade, Flex, Heading, IconButton, Input, InputGroup, InputLeftElement, Tab, TabList, Tabs, Text, useDisclosure } from "@chakra-ui/react";
+import { Box, Button, Center, Collapse, Divider, Fade, Flex, Heading, IconButton, Input, InputGroup, InputLeftElement, Tab, TabList, Tabs, Text, useDisclosure, useToast } from "@chakra-ui/react";
 import Image from "next/image";
 import cat from "../../public/Icons/cat.svg";
 import dog from "../../public/Icons/dog.svg";
 import bird from "../../public/Icons/bird.svg";
 import { useRouter } from "next/router";
-import { BellIcon, SearchIcon } from "@chakra-ui/icons";
+
 
 
 
@@ -29,8 +29,10 @@ const tabs = [
 
 
 const Header = () => {
+    
     const { push } = useRouter()
     const { isOpen, onToggle } = useDisclosure()
+    const toast = useToast()
 
     return (
         <Box bgColor={'white'} pos={'fixed'} maxW={'425px'} w={'100%'} p={3} zIndex={10}>
@@ -50,6 +52,14 @@ const Header = () => {
                     </Text>
                 </Center>
                 <IconButton
+                    onClick={() =>
+                        toast({
+                            title: 'You are not registered :( ',
+                            description: "Let's register first",
+                            status: 'error',
+                            duration: 5000,
+                            isClosable: true,
+                        })}
                     icon={<Image src={'/Icons/bell.svg'} width='32' height={'32'} alt='bell' />}
                     fontSize={'xl'}
                     fontWeight='hairline'
