@@ -15,12 +15,12 @@ const Categories = ({ users }) => {
 
 
   useEffect(() => {
-    const fetchFavs = async () => {
-      const resp = await fetch('/api/favorites')
-      const data = await resp.json()
+   
+     fetch('/api/favorites')
+     .then((res) => res.json())
+     .then((data) => {
       setFavs(data)
-    };
-    fetchFavs();
+    })    
   }, [toggle]);
 
 

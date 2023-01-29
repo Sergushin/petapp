@@ -1,6 +1,6 @@
 import Layout from "@/components/Layout";
 import { StarIcon } from "@chakra-ui/icons";
-import {  Heading,  Flex,  HStack, IconButton, Text, Avatar,  Card, CardHeader, CardBody, Stack, StackDivider } from "@chakra-ui/react";
+import { Heading, Flex, HStack, IconButton, Text, Avatar, Card, CardHeader, CardBody, Stack, StackDivider } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 
 
@@ -13,12 +13,11 @@ const Favorite = ({ favorites }) => {
 
 
     useEffect(() => {
-        const fetchFavs = async () => {
-            const resp = await fetch('/api/favorites')
-            const data = await resp.json()
-            setFavs(data)
-        };
-        fetchFavs();
+        fetch('/api/favorites')
+            .then((res) => res.json())
+            .then((data) => {
+                setFavs(data)
+            })
     }, [toggle]);
 
 
@@ -57,17 +56,17 @@ const Favorite = ({ favorites }) => {
                                             </Heading>
                                         </HStack>
                                         <IconButton
-                                                icon={<StarIcon />}
-                                                onClick={() => { handleClick(item) }}
-                                                bgColor={'#9A6AF9'}
-                                                w={'2rem'}
-                                                p={2}
-                                                borderRadius={'3xl'}
-                                                color={'white'}
-                                                _hover={{ bgColor: 'purple.500', }}
-                                                _active={{ bgColor: 'purple.700' }}
-                                            >
-                                            </IconButton>
+                                            icon={<StarIcon />}
+                                            onClick={() => { handleClick(item) }}
+                                            bgColor={'#9A6AF9'}
+                                            w={'2rem'}
+                                            p={2}
+                                            borderRadius={'3xl'}
+                                            color={'white'}
+                                            _hover={{ bgColor: 'purple.500', }}
+                                            _active={{ bgColor: 'purple.700' }}
+                                        >
+                                        </IconButton>
                                     </Flex>
 
 

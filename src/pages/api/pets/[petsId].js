@@ -1,8 +1,5 @@
 import { pets } from "@/data/pets"
 
-
-
-
 export default function handler(req, res) {
   const { petsId } = req.query
   if (req.method === 'GET') {

@@ -16,7 +16,9 @@ export default function Home() {
   return (  
     <Box maxW={'md'} p={5} mx='auto' zIndex='100' >
       <Box >
-        <Image shadow={'lg'} loading='lazy' borderRadius={'30px'} src={'pet-image.jpg'} alt='petImage' />
+        <Image style={{
+          borderRadius:'30px'        
+        }} shadow={'lg'} loading='lazy'  src={'pet-image.jpg'} alt='petImage' />
       </Box>
       <Box maxW={'323px'} w='100%' mx='auto' >
         <Heading as='h1' size='md' mt={'8'} >Let Find A</Heading>
