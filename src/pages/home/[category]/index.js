@@ -5,13 +5,18 @@ import Layout from "@/components/Layout";
 import Link from "next/link";
 import { ChatIcon, PhoneIcon, StarIcon } from "@chakra-ui/icons";
 import Image from "next/image";
-
+import useSWR from 'swr'
+const fetcher = (...args) => fetch(...args).then(res => res.json())
 
 const Categories = ({ users }) => {
   const [favs, setFavs] = useState([])
   const router = useRouter();
   const category = router.query.category;
   const [toggle, setToggle] = useState(false)
+  const { data, error, isLoading } = useSWR(`/api/pets?type=${category}`, fetcher)
+  // const { datas, errors, isLoadings } = useSWR(`/api/favorites/1`, fetcher)
+
+  
 
 
   useEffect(() => {
@@ -22,7 +27,7 @@ const Categories = ({ users }) => {
       setFavs(data)
     })    
   }, [toggle]);
-
+ 
 
   const handleClick = (user) => {
     setToggle(!toggle)
@@ -43,12 +48,14 @@ const Categories = ({ users }) => {
       }).then(response => response.json())
     }
   }
+  if (error) return <div>ошибка загрузки</div>
+  if (isLoading) return <div>загрузка...</div>
 
 
   return (
     <Layout >
 
-      {users.map((user) => {
+      {data.map((user) => {
 
         return (
           <Card my={'20px'} maxW='sm'
@@ -126,33 +133,34 @@ const Categories = ({ users }) => {
         )
       })}
 
+
     </Layout>
   )
 }
 export default Categories;
 
-export const getStaticProps = async ({ params }) => {
-  const result = await fetch(`https://benjamin-petapp.vercel.app/api/pets?type=${params.category}`);
-  const users = await result.json()
-  return {
-    props: {
-      users,
-    },
-    revalidate: 5
-  };
-};
-export const getStaticPaths = async () => {
-  const res = await fetch(`https://benjamin-petapp.vercel.app/api/pets`);
-  const users = await res.json();
-  const paths = users.map((user) => {
-    return {
-      params: {
-        category: `${user.type}`,
-      },
-    };
-  });
-  return {
-    paths,
-    fallback: "blocking",
-  };
-};
+// export const getStaticProps = async ({ params }) => {
+//   const result = await fetch(`https://benjamin-petapp.vercel.app/api/pets?type=${params.category}`);
+//   const users = await result.json()
+//   return {
+//     props: {
+//       users,
+//     },
+//     revalidate: 5
+//   };
+// };
+// export const getStaticPaths = async () => {
+//   const res = await fetch(`https://benjamin-petapp.vercel.app/api/pets`);
+//   const users = await res.json();
+//   const paths = users.map((user) => {
+//     return {
+//       params: {
+//         category: `${user.type}`,
+//       },
+//     };
+//   });
+//   return {
+//     paths,
+//     fallback: "blocking",
+//   };
+// };
