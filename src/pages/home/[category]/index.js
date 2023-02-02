@@ -20,13 +20,18 @@ const Categories = ({ users }) => {
 
 
   useEffect(() => {
-   
-     fetch('/api/favorites')
-     .then((res) => res.json())
-     .then((data) => {
-      setFavs(data)
-    })    
-  }, [toggle]);
+    async function getFavs() {
+      const actualData  = await fetch (
+        '/api/favorites'
+      ).then(response => response.json())
+      .then((data) => {
+        setFavs(data)
+      })
+    }
+    getFavs();
+  
+      
+    }, [toggle]);
  
 
   const handleClick = (user) => {

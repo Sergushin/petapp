@@ -2,8 +2,7 @@ import Layout from "@/components/Layout";
 import { StarIcon } from "@chakra-ui/icons";
 import { Heading, Flex, HStack, IconButton, Text, Avatar, Card, CardHeader, CardBody, Stack, StackDivider } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
-import useSWR from 'swr'
-const fetcher = (...args) => fetch(...args).then(res => res.json())
+
 
 
 
@@ -11,7 +10,6 @@ const Favorite = ({ favorites }) => {
 
     const [toggle, setToggle] = useState(false)
     const [favs, setFavs] = useState([])
-    const { data, error, isLoading } = useSWR(`/api/favorites`, fetcher)
 
     const handleClick = (item) => {
         setToggle(!toggle)
@@ -27,15 +25,18 @@ const Favorite = ({ favorites }) => {
     }
 
     useEffect(() => {
-        fetch('/api/favorites')
-            .then((res) => res.json())
-            .then((data) => {
-                setFavs(data)
-            })
+        async function getFavs() {
+            const actualData = await fetch(
+                '/api/favorites'
+            ).then(response => response.json())
+                .then((data) => {
+                    setFavs(data)
+                })
+        }
+        getFavs();
     }, [toggle]);
 
-    if (error) return <div>ошибка загрузки</div>
-    if (isLoading) return <div>загрузка...</div>
+
 
 
     return (
@@ -46,8 +47,8 @@ const Favorite = ({ favorites }) => {
                 <CardBody >
                     <Stack divider={<StackDivider />} spacing='4'>
 
-                        {data.length == 0 ? (<CardHeader><Heading>It's empty here :(</Heading><Text>Add Your Favorite Pet On The Home Page</Text></CardHeader>) : (
-                            data.map(
+                        {favs.length == 0 ? (<CardHeader><Heading>It's empty here :(</Heading><Text>Add Your Favorite Pet On The Home Page</Text></CardHeader>) : (
+                            favs.map(
                                 (item) =>
 
 
@@ -90,13 +91,13 @@ const Favorite = ({ favorites }) => {
 
 export default Favorite;
 
-// export async function getServerSideProps() {
-//     const result = await fetch('https://benjamin-petapp.vercel.app/api/favorites')
-//     const favorites = await result.json()
-//     return {
-//         props: {
-//             favorites
-//         },
-//     }
+export async function getServerSideProps() {
+    const result = await fetch('https://benjamin-petapp.vercel.app/api/favorites')
+    const favorites = await result.json()
+    return {
+        props: {
+            favorites
+        },
+    }
 
-// }
+}

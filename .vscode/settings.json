@@ -9,7 +9,14 @@
         ".vscode",
         ".next",
         "src/styles",
-        "src/pages/_document.js"
+        "src/pages/_document.js",
+        "src/pages/index.js",
+        "src/pages/_app.js",
+        "src/pages/pets",
+        "src/pages/user",
+        ".eslintrc.json",
+        "src/components",
+        "public"
     ],
     "files.exclude": {
         "**/.git": true,
@@ -27,6 +34,13 @@
         ".vscode": true,
         ".next": true,
         "src/styles": true,
-        "src/pages/_document.js": true
+        "src/pages/_document.js": true,
+        "src/pages/index.js": true,
+        "src/pages/_app.js": true,
+        "src/pages/pets": true,
+        "src/pages/user": true,
+        ".eslintrc.json": true,
+        "src/components": true,
+        "public": true
     }
 }
